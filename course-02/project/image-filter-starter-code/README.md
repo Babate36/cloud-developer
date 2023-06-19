@@ -46,3 +46,18 @@ Prevent requests without valid authentication headers.
 
 Add your own domain name and have it point to the running services (try adding a subdomain name to point to the processing server)
 > !NOTE: Domain names are not included in AWS’ free tier and will incur a cost.
+
+### My Implementation
+Through testing I have realized that there may be issues with the util.ts, where depending on the file size errors are caught. The provided https://upload.wikimedia.org/wikipedia/commons/b/bd/Golden_tabby_and_white_kitten_n01.jpg link does not work and always returns an error. Utilizing smaller images such as a thumbnail of the golden tabby image works though. Below are two URLs that worked. In addition, during initial testing smaller images from Wikimedia worked, but after I deployed to ElasticBeanStalk they no longer worked on my local server or my deployed code. I believe this may be a latitency issue, which may also be the root cause of the util.ts only handling small images.
+
+https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShTbeS9aSfwrGU1nmOa6h4qCu0U49ANy-y-SZnyLJVBQ&s
+https://clipart-library.com/new_gallery/39-397577_sitting-small-cat-png-image-house-cat-transparent.png
+
+
+Running on Local Server:
+http://localhost:8082/filteredimage?image_url=https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Golden_tabby_and_white_kitten_n01.jpg/800px-Golden_tabby_and_white_kitten_n01.jpg
+http://localhost:8082/filteredimage?image_url=https://clipart-library.com/new_gallery/39-397577_sitting-small-cat-png-image-house-cat-transparent.png
+
+Running on Elastic Bean Stalk:
+http://image-filter-starter-code-prod.us-east-1.elasticbeanstalk.com/filteredimage?image_url=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShTbeS9aSfwrGU1nmOa6h4qCu0U49ANy-y-SZnyLJVBQ&s
+http://image-filter-starter-code-prod.us-east-1.elasticbeanstalk.com/filteredimage?image_url=https://clipart-library.com/new_gallery/39-397577_sitting-small-cat-png-image-house-cat-transparent.png
